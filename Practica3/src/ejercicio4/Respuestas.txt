@@ -1,0 +1,21 @@
+Indicar si son verdaderas o falsas las siguientes afirmaciones sobre las clases
+anónimas ​y en cada caso justifique su respuesta:
+
+❏ Se pueden instanciar más allá del punto en donde fueron declaradas.
+No, las clases anonimas son declaradas e instanciadas en el mismo punto donde se van a usar, al ser anonimas no podriamos acceder a 
+ellas ya que al no poseer nombre no podemos hacer referencia a ellas desde afuera.
+
+❏ Unos de los usos más comunes de este tipo de clases es la creación de objetos función y procesos on the fly.
+Si, Una instancia de una clase JAVA que exporta métodos que realizan operaciones sobre otros objetos pasados explícitamente como 
+parámetros, expresa objeto-función. Uno de los usos de las clases anonimas es representar clases exportar su funcionalidad redefiniendo
+diferentes estrategias para la funcion modificada.
+
+❏ Se puede utilizar el instanceof​ siempre y cuando la interfaz de la que deriva la clase anónima sea de tipo marker​.
+No, instanceof se puede utilizar en cualquier clase y va a devolver true o false fijandose en las clases que lo extienden.
+La utilidad de una clase tipo marker es proporsionar un cierto comportamiento el cual vamos a estar seguro de que esa clase va a
+cumplir
+
+
+❏ No se puede implementar múltiples interfaces o extender clases e implementar interfaces al mismo tiempo.
+Si, una de las caracteristicas de las clases anonimas es que solo puede extender una clase o implementar una interface.
+Tampoco puede implementar varias interfaces al mismo tiempo. Esto posiblemente se deba al ser incapaz de contener constructores.
