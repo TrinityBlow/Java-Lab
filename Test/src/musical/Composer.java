@@ -36,6 +36,7 @@ public class Composer extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	public Composer(){
+		//configuracion de la box maestra y del frame
 		theBox = Box.createVerticalBox();
 		player = new Player();
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -43,13 +44,11 @@ public class Composer extends JFrame {
 		this.add(theBox);
 		this.setSize(1200, 300);
 		
-		//
-		theBox.add(new JLabel("Compositor Musical"));
+		//composicion del Compositor Musical
 		this.initializeCompositor();
-		//
-		theBox.add(new JLabel("Compositor por Escritura JFugue"));
+		//composicion del Compositor por Escritura JFugue
 		this.initializeTextoNota();
-		//
+		//listeners
 		this.initializeListener();
 
 		//mostrar frame
@@ -84,8 +83,8 @@ public class Composer extends JFrame {
 			
 	}
 
+	//listeners de todos los componentes
 	private void initializeListener() {
-		//listeners de componentes
 		ActionListener lRadioButton = ListenForRadioButton.changeSigno(this);
 		ChangeListener lForSlider = ListenForSlider.sliderListenerTime(this);
 		
@@ -100,11 +99,11 @@ public class Composer extends JFrame {
 		partitura.addMouseListener(ListenForPanel.partituraListener(this));
 	}
 
-	//creacion de componentes
+	//creacion de componentes del Compositor Musical
 	private void initializeCompositorBox(){
 		boxCompositorPart1 = Box.createVerticalBox();
 		boxCompositorPart2 = Box.createVerticalBox();
-		partitura = new JPartitura(picClaveSol);
+		partitura = new JPartitura(picClaveSol,charToPic);
 		boxCompositor = Box.createHorizontalBox();
 		buttonComp1 = new JButton("Tocar");
 		buttonComp2 = new JButton("Deshacer");
@@ -124,9 +123,11 @@ public class Composer extends JFrame {
 
 	
 	
-	//agregacion de todos los componentes creados en las boxes y paneles pertenecientes
+	//agregacion de todos los componentes creados en el box y paneles pertenecientes al Compositor Musical
 	//el orden importa para la ubicacion en el layout
 	private void addComponentsToPanel(){
+		theBox.add(new JLabel("Compositor Musical"));
+		
 		boxCompositorPart1.add(partitura);
 		partitura.setPreferredSize(new Dimension(300,200));
 		boxCompositorPart1.add(scrollText1);
@@ -142,8 +143,6 @@ public class Composer extends JFrame {
 		boxCompositor.add(boxCompositorPart1);
 		boxCompositor.add(boxCompositorPart2);
 		theBox.add(boxCompositor);
-
-		    // create the middle panel components
 
 	}
 	
@@ -168,7 +167,7 @@ public class Composer extends JFrame {
 		menuInst.setMaximumSize( new Dimension( 800, 30 ) );
 	}
 	
-	
+	//grupo de radio button que controla el signo
 	private void initializeRadioButton(){
 		signoSostenido.setVerticalTextPosition(SwingConstants.TOP);
 		signoSostenido.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -182,7 +181,9 @@ public class Composer extends JFrame {
 		signoNinguno.setSelected(true);
 	}
 
+	//crea el slider de las notas con sus imagenes
 	private void createNoteBox() {
+		//creacion del label y el slider
 		labelNote = new Hashtable<Integer, JLabel>();
 		sliderNote = new JSlider(1, 7, 3);
 		sliderNote.setMajorTickSpacing(1);
@@ -201,7 +202,9 @@ public class Composer extends JFrame {
 		sliderNote.setPaintLabels(true);	
 	}
 
+	//Crea el compositor por escritura JFugue
 	private void initializeTextoNota() {
+		theBox.add(new JLabel("Compositor por Escritura JFugue"));
 		boxTexto = Box.createHorizontalBox();
 		button2 = new JButton("Tocar Custom");
 		text2 = new JTextArea(5,12);		
@@ -212,14 +215,21 @@ public class Composer extends JFrame {
 		scrollText2.setMaximumSize(new Dimension(this.getWidth(),60));
 	    boxTexto.add(scrollText2);
 		boxTexto.add(button2);
-		
+	
 		theBox.add(boxTexto);
 	}
 	
+	
+	//activa el JFugue  con lo que hay en el text
 	protected void playText1() {
 		player.play("I[" + actualInstrument + "] " + text1.getText());
 	}
 
+	protected void playText2() {
+		player.play( "I[" + actualInstrument +"] " + text2.getText());
+	}
+	
+	//actualize la duracion de la nota con la que muestra el slider
 	protected void updateNote() {
 		if (sliderNote.getValue() == 1){
 			actualNote = 'w';
@@ -245,7 +255,7 @@ public class Composer extends JFrame {
 	
 	//dada una posicion en pixeles agrega la siguiente nota en el la partitura
 	protected void nextTune(int position){
-		this.partitura.nextTune(position, charToPic.get(actualNote), actualNote,signo);
+		this.partitura.nextTune(position, actualNote,signo);
 		this.updateText1();
 	}
 	
@@ -261,15 +271,12 @@ public class Composer extends JFrame {
 		this.updateText1();
 	}
 
-	
+	//modifica el signo correspondiente con el radio button seleccionado
 	protected void updateSigno() {
 		signo = group.getSelection().getActionCommand();
 	}
 
-	protected void playText2() {
-		player.play( "I[" + actualInstrument +"] " + text2.getText());
-	}
-	
+	//modifica el instrumento actual correspondiente al elegido en el menu
 	protected void updateInstrument() {
 		actualInstrument = String.valueOf(jfugueInst[menuInst.getSelectedIndex()]);
 	}
