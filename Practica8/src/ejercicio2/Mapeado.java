@@ -11,7 +11,8 @@ public class Mapeado {
 	
 	@AlmacenarAtributo
 	private Float valor3=30.20f;
-	
+
+	private Float valor4=22.20f;
 	//Metodos getters y setters
 
 	public String getValor() {
@@ -37,5 +38,15 @@ public class Mapeado {
 	public void setValor3(Float valor3) {
 		this.valor3 = valor3;
 	}
+
+	public Float getValor4() {
+		return valor4;
+	}
+
+	public void setValor4(Float valor4) {
+		this.valor4 = valor4;
+	}
+
+	
 	
 }
