@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import org.jfugue.player.Player;
+
+
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -280,6 +282,7 @@ public class Composer extends JFrame {
 	protected void updateInstrument() {
 		actualInstrument = String.valueOf(jfugueInst[menuInst.getSelectedIndex()]);
 	}
+	
 	
 	public static void main(String[] args) {
 		new Composer();
